@@ -27,7 +27,7 @@
       // Ready to go. Do some stuff.
     };
   }, errorCallback);
-  	window.setTimeout(stopRecord, 10000);
+  	window.setTimeout(stopRecord, 30000);
  }
 
   function stopRecord(){
@@ -78,7 +78,7 @@
 	<section id="main">
 		<div id="vid">
 			<!-- <canvas id="surf" width="500px" height="400px"></canvas> -->
-			<video id="cpt" autoplay width="500px" height="500px" control ></video>
+			<video id="cpt" autoplay controls="true" width="500px" height="500px" control ></video>
 			<div id="buttonwrap">
 				<button onclick="startRecord()">Capture Video</button>
 				<button type="" onclick="stopRecord()">Stop record</button>

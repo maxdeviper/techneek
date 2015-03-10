@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					box.width=(e.pageX-this.offsetLeft)-box.x;
 					box.height=(e.pageY-this.offsetTop)-box.y;
 					ctx.clearRect(0,0,canvas.width,canvas.height);
-					console.log(box);
+					// console.log(box);
 					draw();
 				}
 			};
@@ -62,14 +62,17 @@ document.addEventListener("DOMContentLoaded", function() {
 			popup.style.top=(posY+"px");
 			popup.style.left=(posX+"px");
 			popup.style.display="block";
-			console.log(e.pageY);
-		}
+			}
 		function removePopUp(){
 			var popup=document.getElementById("popup");
 			popup.style.display="none";
 		}
 		function onSubmitPopup(){
-			vid.play();
+			var vip=document.getElementById("demo_video")
+			vip.play();
 			var tag=$("#pop>input").val();
 			$("#tags>p").text(tag);
+		}
+		function stopTagInstance(){
+
 		}

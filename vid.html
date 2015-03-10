@@ -4,6 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Edit Video</title>
 	<style type="text/css">
+	/*#main{
+		margin:0 auto;
+		width:500px;
+	}*/
 	#surf{
 		position: absolute;
 		top: 0px;
@@ -15,7 +19,7 @@
 		top: 0px;
 		left:0px;
 	}
-	.wrap{
+	#wrap{
 		position: relative;
 	}
 	#popup{
@@ -27,28 +31,42 @@
 		/*top:200px;
 		left:100px;*/
 	}
+	#tags{
+		postion:absolute;
+		bottom:50px;
+	}
+	#stopTag{
+		position: relative;
+		right:0px;
+	}
+
 
 	</style>
 </head>
 <body ng-app="">
 	<section id="main">
-		
-<div id="wrap">
-	<video id="demo_video" autoplay controls autobuffer width="500px" height="400px">
-	    <source src="vids/demo.webm" type="video/webM">
-	    <source src="vids/demo.mp4" type="video/webM">
-	</video>
-	<canvas id="surf" width="500px" height="400px"></canvas>
-	<div id="popup">
-        	<input type="text" ng-model="tag" />
-        	<button onclick="onSubmitPopup">Save</button>
-    </div>
-</div>
-        <section id="tags">
+				
+		<div id="wrap">
+			<video id="demo_video" autoplay controls="true" autobuffer width="500px" height="400px">
+			    <source src="vids/demo.webm" type="video/webM">
+			    <source src="vids/demo.mp4" type="video/webM">
+			</video>
+			<canvas id="surf" width="500px" height="400px"></canvas>
+			<div id="popup">
+	        	<input type="text" ng-model="tag" />
+	        	<button onclick="onSubmitPopup()">Save</button>
+		    </div>
+	      <div id="tags">
         	<p>{{tag}}</p>
-        </section>
+        	<button id="stopTag" onclick="stopTagInstance()">Stop Tag</button>
+	        </div>
+		</div>
+      
         
     </section>
+    <pre>
+    	
+    </pre>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
     <script src="js/angular.min.js" type="text/javascript" charset="utf-8" async defer></script>
 	<script src="js/popcorn-complete.js" type="text/javascript" charset="utf-8" async defer></script>
