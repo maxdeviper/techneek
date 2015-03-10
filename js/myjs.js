@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			    pop.play();
 		 
 		});
+			var tag={
+
+			}
 		    	
 			var box={
 				x:0,
@@ -68,8 +71,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			popup.style.display="none";
 		}
 		function onSubmitPopup(){
-			var vip=document.getElementById("demo_video")
-			vip.play();
+			// var vip=document.getElementById("demo_video")
+			vid.play();
 			var tag=$("#pop>input").val();
 			$("#tags>p").text(tag);
 		}
