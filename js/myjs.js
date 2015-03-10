@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				canvas.style.cursor = "crosshair";
 			}
 			function mouseDown(e){
-				vid.pause;
+				vid.pause();
+				removePopUp();
 				box.x=e.pageX-this.offsetLeft;
 				box.y=e.pageY-this.offsetTop;
 				drag=true;
@@ -62,4 +63,13 @@ document.addEventListener("DOMContentLoaded", function() {
 			popup.style.left=(posX+"px");
 			popup.style.display="block";
 			console.log(e.pageY);
+		}
+		function removePopUp(){
+			var popup=document.getElementById("popup");
+			popup.style.display="none";
+		}
+		function onSubmitPopup(){
+			vid.play();
+			var tag=$("#pop>input").val();
+			$("#tags>p").text(tag);
 		}

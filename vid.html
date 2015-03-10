@@ -31,7 +31,7 @@
 	</style>
 </head>
 <body ng-app="">
-	<section id="main" class="vidCon">
+	<section id="main">
 		
 <div id="wrap">
 	<video id="demo_video" autoplay controls autobuffer width="500px" height="400px">
@@ -41,7 +41,7 @@
 	<canvas id="surf" width="500px" height="400px"></canvas>
 	<div id="popup">
         	<input type="text" ng-model="tag" />
-        	<button>Save</button>
+        	<button onclick="onSubmitPopup">Save</button>
     </div>
 </div>
         <section id="tags">
@@ -49,8 +49,8 @@
         </section>
         
     </section>
-    <script src="js/jquery-1.11.1.js" type="text/javascript" charset="utf-8" async defer></script>
-    <script src="js/angular.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/angular.min.js" type="text/javascript" charset="utf-8" async defer></script>
 	<script src="js/popcorn-complete.js" type="text/javascript" charset="utf-8" async defer></script>
     <script src="js/myjs.js">
 
