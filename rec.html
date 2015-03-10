@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Video</title>
+		<script type="text/javascript">
+		navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+         var errorCallback = function(e) {
+		    console.log('Reeeejected!', e);
+		  };
+
+		  var stream=null;
+		  var isStarted=false;
+  //Not showing vendor prefixes.
+  function startRecord(){
+  	navigator.getUserMedia({video: true}, function(localMediaStream) {
+    var video = document.querySelector('video');
+    stream=localMediaStream;
+    video.src = window.URL.createObjectURL(localMediaStream);
+
+    // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+    // See crbug.com/110938.
+    video.onloadedmetadata = function(e) {
+      // Ready to go. Do some stuff.
+    };
+  }, errorCallback);
+  	window.setTimeout(stopRecord, 10000);
+ }
+
+  function stopRecord(){
+  	var vid=document.getElementById("cpt");
+	vid.pause();
+  	stream.stop();
+	
+}
+	</script>
+	<style type="text/css">
+	#surf{
+		position: absolute;
+		top: 0px;
+		left:0px;
+		border: 2px black dotted;
+		min-height: 100%;
+		/*z-index: 1;*/
+	}
+	#cpt{
+		position: absolute;
+		top: 0px;
+		left:0px;
+		min-height: 100%;
+	}
+	#vidCon{
+		position: relative;
+	}
+	#main{
+		/*position:relative;*/
+		margin:0 auto;
+		width:500px;
+	}
+	#popup{
+		display:none;
+	}
+	#buttonwrap{
+		position: absolute;
+		bottom: -50px;
+	}
+	#vid{
+		position: relative;
+		width:500px;
+		height: 400px;
+	}
+	</style>
+</head>
+<body>
+	<section id="main">
+		<div id="vid">
+			<!-- <canvas id="surf" width="500px" height="400px"></canvas> -->
+			<video id="cpt" autoplay width="500px" height="500px" control ></video>
+			<div id="buttonwrap">
+				<button onclick="startRecord()">Capture Video</button>
+				<button type="" onclick="stopRecord()">Stop record</button>
+			</div>
+		</div>
+        <section id="tags">
+        </section>
+        <div id="popup">
+        	<input type="text" ng-model="tag">
+        </div>
+    </section>
+    <script src="js/jquery-1.11.1.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/angular.js" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="js/popcorn-complete.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/myjs2.js">
+
+    </script>
+	
+</body>
+</html>
