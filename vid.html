@@ -10,14 +10,14 @@
 	}*/
 	#surf{
 		position: absolute;
-		top: 0px;
-		left:0px;
+		top: 0;
+		left:0
 		border: 2px black dotted;
 	}
 	#demo_video{
 		position: absolute;
-		top: 0px;
-		left:0px;
+		top: 0;
+		left:0;
 	}
 	#wrap{
 		position: relative;
@@ -32,12 +32,12 @@
 		left:100px;*/
 	}
 	#tags{
-		postion:absolute;
-		bottom:50px;
+		position:absolute;
+		bottom:-50px;
 	}
 	#stopTag{
 		position: relative;
-		right:0px;
+		right:0;
 	}
 
 
@@ -47,25 +47,26 @@
 	<section id="main">
 				
 		<div id="wrap">
-			<video id="demo_video" autoplay controls="true" autobuffer width="500px" height="400px">
+			<video id="demo_video" autoplay controls="true" autobuffer="true" width="500px" height="400px">
 			    <source src="vids/demo.webm" type="video/webM">
 			    <source src="vids/demo.mp4" type="video/webM">
 			</video>
 			<canvas id="surf" width="500px" height="400px"></canvas>
 			<div id="popup">
-	        	<input type="text" ng-model="tag" />
+	        	<input type="text" ng-model="tag" placeholder="Enter Tag information"/>
 	        	<button onclick="onSubmitPopup()">Save</button>
 		    </div>
 	      <div id="tags">
-        	<p>{{tag}}</p>
         	<button id="stopTag" onclick="stopTagInstance()">Stop Tag</button>
+        	<button id="reload" onclick="reloadVideo()">Preview</button>
+        	<button id="continuePlay" onclick="continuePlay()">Continue play</button>
 	        </div>
 		</div>
       
         
     </section>
     <pre>
-    	
+
     </pre>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
     <script src="js/angular.min.js" type="text/javascript" charset="utf-8" async defer></script>
