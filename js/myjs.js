@@ -66,7 +66,8 @@ function initialize() {
             displayTag(Tag);
             isShownTag=true;
 
-        }else if(this.currentTime>=Tag.endTime){
+        }
+        else if(this.currentTime>=Tag.endTime){
             if(isShownTag){
                 clearDraw();
                 isShownTag=false;
@@ -90,12 +91,11 @@ function mouseDown(e) {
  * the mouseup event function for the canvas that pops up the tag edit box
  * @param e
  */
-function mouseUp() {
+function mouseUp(e) {
     drag = false;
     Tag.startTime=vid.currentTime;
     Tag.setTagBox(box);
-    //showPop(e);
-    vid.play();
+    showPop(e);
 }
 /**
  * a mouse move event on the canvas that draws the tag rectangle based on user's
@@ -146,7 +146,9 @@ function onSubmitPopup() {
     // var vip=document.getElementById("demo_video")
     vid.play();
     Tag.tagInfo=$("#pop input").val();
+    Tag.endTime=Tag.startTime+4;
     removePopUp();
+    clearDraw();
 }
 /**
  * start tag instance

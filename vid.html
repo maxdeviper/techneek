@@ -45,7 +45,6 @@
 </head>
 <body ng-app="">
 	<section id="main">
-				
 		<div id="wrap">
 			<video id="demo_video" autoplay controls="true" autobuffer="true" width="500px" height="400px">
 			    <source src="vids/demo.webm" type="video/webM">
@@ -53,13 +52,13 @@
 			</video>
 			<canvas id="surf" width="500px" height="400px"></canvas>
 			<div id="popup">
-	        	<input type="text" ng-model="tag" placeholder="Enter Tag information"/>
-	        	<button onclick="onSubmitPopup()">Save</button>
+	        	<input type="text" ng-model="tag" placeholder="Enter Tag information" onblur="onSubmitPopup()"/>
+	        	<!--<button onclick="onSubmitPopup()">Save</button>-->
 		    </div>
 	      <div id="tags">
-        	<button id="stopTag" onclick="stopTagInstance()">Stop Tag</button>
+        	<!--<button id="stopTag" onclick="stopTagInstance()">Stop Tag</button>-->
         	<button id="reload" onclick="reloadVideo()">Preview</button>
-        	<button id="continuePlay" onclick="continuePlay()">Continue play</button>
+        	<!--<button id="continuePlay" onclick="continuePlay()">Continue play</button>-->
 	        </div>
 		</div>
       
