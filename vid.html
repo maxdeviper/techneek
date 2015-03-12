@@ -46,21 +46,21 @@
 <body ng-app="">
 	<section id="main">
 		<div id="wrap">
-			<video id="demo_video" autoplay controls="true" autobuffer="true" width="500px" height="400px">
+			<video id="demo_video"  controls="" autobuffer="true" width="500px" height="400px">
 			    <source src="vids/demo.webm" type="video/webM">
 			    <source src="vids/demo.mp4" type="video/webM">
 			</video>
-			<canvas id="surf" width="500px" height="400px"></canvas>
+			<canvas id="surf" width="500px" height="400px" ></canvas>
 			<div id="popup">
 				<form>
-	        		<input type="text" ng-model="tag" placeholder="Enter Tag information" onsubmit="onSubmitPopup();return false" onmouseout="onSubmitPopup()"/>
+	        		<input class="tagInfo" type="text" ng-model="tag" placeholder="Enter Tag information" onsubmit="onSubmitPopup();return false;" onmouseout="onMouseOutPopup()"/>
 	        	<!--<button onclick="onSubmitPopup()">Save</button>-->
 				</form>
 		    </div>
 	      <div id="tags">
-        	<!--<button id="stopTag" onclick="stopTagInstance()">Stop Tag</button>-->
-        	<button id="reload" onclick="reloadVideo()">Preview</button>
-        	<!--<button id="continuePlay" onclick="continuePlay()">Continue play</button>-->
+        	<button id="editVid_btn" onclick="editVid()">Edit</button>
+        	<button id="reload_btn" onclick="preview()">Preview</button>
+        	<button id="play_btn" onclick="playVid()">Play</button>
 	        </div>
 		</div>
       

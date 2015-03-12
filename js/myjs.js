@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 /**
+ * mode - used to determine the event that should be present
+ */
+var mode="preview";
+/**
  * A collection of tag for a video
  * @type {Array}
  */
@@ -56,25 +60,16 @@ var isShownTag=false;
  * A function that is used to initialize the canvas event listeners
  */
 function initialize() {
-    canvas.addEventListener('mousedown', mouseDown, false);
-    canvas.addEventListener('mousemove', mouseMove, false);
-    canvas.addEventListener('mouseup', mouseUp, false);
-    vid.addEventListener('timeupdate',function(){
-        console.log(Tag);
-        console.log("time update fired = " +this.currentTime);
-        if(this.currentTime>=Tag.startTime&&this.currentTime<Tag.endTime){
-            displayTag(Tag);
-            isShownTag=true;
+    if(mode=='edit'){
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mousemove', mouseMove, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.style.cursor = "crosshair";
+        return;
+    }
 
-        }
-        else if(this.currentTime>=Tag.endTime){
-            if(isShownTag){
-                clearDraw();
-                isShownTag=false;
-            }
-        }
-    },false);
-    canvas.style.cursor = "crosshair";
+    vid.addEventListener('timeupdate',tagRun,false);
+
 }
 /**
  * the mousedown event function for the canvas that creates the starting point of the tag rectangle
@@ -130,6 +125,7 @@ function showPop(e) {
     popup.style.top = (posY + "px");
     popup.style.left = (posX + "px");
     popup.style.display = "block";
+    $('#popup .tagInfo').focus();
 
 }
 /**
@@ -149,6 +145,14 @@ function onSubmitPopup() {
     Tag.endTime=Tag.startTime+4;
     removePopUp();
     clearDraw();
+}
+function onMouseOutPopup() {
+    // var vip=document.getElementById("demo_video")
+    Tag.tagInfo=$("#popup .tagInfo").val();
+    Tag.endTime=Tag.startTime+4;
+    removePopUp();
+    clearDraw();
+    vid.play();
 }
 /**
  * start tag instance
@@ -174,16 +178,91 @@ function clearDraw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 //ToDo save tag
-/* reload video */
-function reloadVideo(){
+/* preview edit video */
+function preview(){
     clearDraw();
+    removeEvents();
+    mode="preview";
     vid.load();
+    initialize();
 }
 /* display tag when video is playing */
 function displayTag(disTag){
     draw(disTag.tagBox);
 
 }
-function continuePlay(){
-    vid.play();
+function playVid(){
+    if(vid.paused){
+        vid.play();
+        $('#play_btn').text('Pause');
+    }
+    else{
+        vid.pause();
+        $('#play_btn').text('Play');
+    }
+}
+function onMouseOver(e){
+    console.log("mouse over fired");
+    canvas.style.cursor="pointer";
+    var tagRect=Tag.tagBox;
+    var x= e.pageX-this.offsetLeft;
+    var y= e.pageY-this.offsetTop;
+    if(x>tagRect.x&& x< tagRect.x+tagRect.width&&y>tagRect.y&&y<tagRect.y+tagRect.height){
+        vid.pause();
+        ctx.strokeStyle='red';
+        canvas.style.cursor="hand";
+    }
+}
+function onMouseOut(e){
+
+    canvas.style.cursor="pointer";
+    var tagRect=Tag.tagBox;
+    var x= e.pageX-this.offsetLeft;
+    var y= e.pageY-this.offsetTop;
+    if(x<tagRect.x&&
+        x>(tagRect.x+tagRect.width)&&
+        y<tagRect.y&&
+        y>(tagRect.y+tagRect.height)
+    ){
+       canvas.style.cursor="default";
+        vid.play();
+    }
+}
+function clickRect(e){
+    var tagRect=Tag.tagBox;
+    var x= e.pageX-this.offsetLeft;
+    var y= e.pageY-this.offsetTop;
+    if(x>tagRect.x&& x< tagRect.x+tagRect.width&&y>tagRect.y&&tagRect.y+tagRect.height){
+        alert(Tag.tagInfo);
+    }
+}
+function tagRun(){
+    console.log(Tag);
+    console.log("time update fired = " +this.currentTime);
+
+    if(this.currentTime>=Tag.startTime&&this.currentTime<Tag.endTime){
+        displayTag(Tag);
+        canvas.addEventListener('mouseover',onMouseOver,false);
+        //canvas.addEventListener('mouseover',onMouseOut,false);
+        canvas.addEventListener('click',clickRect,false);
+        isShownTag=true;
+    }
+    else if(this.currentTime>=Tag.endTime){
+        if(isShownTag){
+            canvas.removeEventListener('click',clickRect,false);
+            clearDraw();
+            isShownTag=false;
+        }
+    }
+}
+function removeEvents(){
+    canvas.removeEventListener('mousedown', mouseDown, false);
+    canvas.removeEventListener('mousemove', mouseMove, false);
+    canvas.removeEventListener('mouseup', mouseUp, false);
+    canvas.removeEventListener('mouseover',onMouseOver,false);
+    canvas.style.cursor="auto";
+}
+function editVid(){
+    mode="edit";
+    initialize();
 }
