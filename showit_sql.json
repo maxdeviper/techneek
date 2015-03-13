@@ -1,0 +1,70 @@
+access_code:{
+	id:""
+	phone_no:""
+	access_code:""
+	time_generated:"",
+	time_used:"",
+	accessed:true|false
+}
+users:{
+	id:"",
+	name:"",
+	DOB:"",
+	sex:"",
+	phone_no:""
+	Location:{city,state},
+	password:"",
+	proile_pix:"",
+	time_joined:""
+}
+likes:{
+	id:""
+	what:"",
+	who:"",
+	time:"",
+}
+favorites:{
+	inviter_id:"",
+	invitee_id:"",
+	time_of_invite:"",
+	time_of_acceptance:"",
+	blocked:false|true	
+}
+messages:{
+	id:"",
+	sender_id:"",
+	reciever_id:"",
+	message:"",
+	time_sent:"",
+	time_recieved:""
+}
+videos:{
+	id:"",
+	owner_id:"",
+	tags:{[{
+		startTime:"",
+		endTime:"",
+		tagInfo:"",
+		tagBox:{x,y,width,height},
+	}]}
+	time_posted:""
+	time_modified:"",
+}
+how_about:{
+	id:"",
+	owner_id:"",
+	time_posted:"",
+	time_edited:"",
+}
+searches:{
+	id:
+	owner_id:"",
+	text:"",
+	tag:"",
+	time_searched:""
+}
+notification:{
+	event:
+	time:
+	for_who:
+	}

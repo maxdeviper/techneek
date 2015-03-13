@@ -102,7 +102,7 @@ function mouseMove(e) {
         box.width = (e.pageX - this.offsetLeft) - box.x;
         box.height = (e.pageY - this.offsetTop) - box.y;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        console.log(box);
+        //console.log(box);
         draw(box);
     }
 }
@@ -170,8 +170,8 @@ function stopTagInstance() {
     clearDraw();
     Tag.tagInfo=$("#tags p").text();
     Tag.endTime=vid.currentTime;
-    console.log(Tag);
-    console.log(Tag.tagBox);
+    //console.log(Tag);
+    //console.log(Tag.tagBox);
 }
 /* clear canvas */
 function clearDraw(){
@@ -184,7 +184,9 @@ function preview(){
     removeEvents();
     mode="preview";
     vid.load();
-    initialize();
+    initialize()
+    vid.play();
+
 }
 /* display tag when video is playing */
 function displayTag(disTag){
@@ -202,7 +204,7 @@ function playVid(){
     }
 }
 function onMouseOver(e){
-    console.log("mouse over fired");
+    //console.log("mouse over fired");
     canvas.style.cursor="pointer";
     var tagRect=Tag.tagBox;
     var x= e.pageX-this.offsetLeft;
@@ -237,8 +239,8 @@ function clickRect(e){
     }
 }
 function tagRun(){
-    console.log(Tag);
-    console.log("time update fired = " +this.currentTime);
+    //console.log(Tag);
+    //console.log("time update fired = " +this.currentTime);
 
     if(this.currentTime>=Tag.startTime&&this.currentTime<Tag.endTime){
         displayTag(Tag);
