@@ -19,6 +19,7 @@
   	navigator.getUserMedia({video: true}, function(localMediaStream) {
     var video = document.querySelector('video');
     stream=localMediaStream;
+    // console.log(stream);
     video.src = window.URL.createObjectURL(localMediaStream);
 
     // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
@@ -90,8 +91,8 @@
         	<input type="text" ng-model="tag">
         </div>
     </section>
-    <script src="js/jquery-1.11.1.js" type="text/javascript" charset="utf-8" async defer></script>
-    <script src="js/angular.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/angular.min.js" type="text/javascript" charset="utf-8" async defer></script>
 	<script src="js/popcorn-complete.js" type="text/javascript" charset="utf-8" async defer></script>
     <script src="js/myjs2.js">
 

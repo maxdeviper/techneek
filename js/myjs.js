@@ -7,10 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
     pop.play();
 
 });
+
+jQuery('#play_btn').click(function(){
+    playVid();
+});
+jQuery('#editVid_btn').click(function(){
+    editVid();
+});
 /**
  * mode - used to determine the event that should be present
  */
-var mode="preview";
+var mode={
+    edit:false
+};
 /**
  * A collection of tag for a video
  * @type {Array}
@@ -50,7 +59,8 @@ var box = {
     startY: 0
 };
 
-
+var hotspot=document.createElement("div");
+// hotspot.style.display='none';
 var canvas = document.getElementById('surf');
 var vid = document.getElementById('demo_video');
 var ctx = canvas.getContext('2d');
@@ -60,7 +70,7 @@ var isShownTag=false;
  * A function that is used to initialize the canvas event listeners
  */
 function initialize() {
-    if(mode=='edit'){
+    if(mode.edit){
         canvas.addEventListener('mousedown', mouseDown, false);
         canvas.addEventListener('mousemove', mouseMove, false);
         canvas.addEventListener('mouseup', mouseUp, false);
@@ -90,6 +100,7 @@ function mouseUp(e) {
     drag = false;
     Tag.startTime=vid.currentTime;
     Tag.setTagBox(box);
+    console.log(Tag.tagBox);
     showPop(e);
 }
 /**
@@ -102,6 +113,8 @@ function mouseMove(e) {
         box.width = (e.pageX - this.offsetLeft) - box.x;
         box.height = (e.pageY - this.offsetTop) - box.y;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // var body=document.querySelector("body");
+        // body.removeChild('');
         //console.log(box);
         draw(box);
     }
@@ -110,6 +123,8 @@ function mouseMove(e) {
  * A function to actually draw the tag rectangle
  */
 function draw(useBox) {
+   
+
     ctx.strokeRect(useBox.x,useBox.y, useBox.width, useBox.height);
 }
 
@@ -180,17 +195,31 @@ function clearDraw(){
 //ToDo save tag
 /* preview edit video */
 function preview(){
+    removeDivTag;
     clearDraw();
     removeEvents();
-    mode="preview";
+    mode.edit=false;
     vid.load();
     initialize()
     vid.play();
+     console.log("is in edit mode :"+mode.edit);
 
 }
 /* display tag when video is playing */
 function displayTag(disTag){
-    draw(disTag.tagBox);
+    // draw(disTag.tagBox);
+    var wrap=document.querySelector("body");
+    hotspot.style.position="absolute";
+    hotspot.style.height=disTag.tagBox.height+'px';
+    hotspot.style.width=disTag.tagBox.width+'px';
+    hotspot.style.left=disTag.tagBox.x+'px';
+    hotspot.style.border='3px black solid';
+    hotspot.style.top=disTag.tagBox.y+'px';
+    hotspot.style.cursor="pointer";
+    hotspot.style.display='block';
+    hotspot.setAttribute('id','hotspot');
+    console.log(hotspot);
+    wrap.appendChild(hotspot);
 
 }
 function playVid(){
@@ -241,21 +270,25 @@ function clickRect(e){
 function tagRun(){
     //console.log(Tag);
     //console.log("time update fired = " +this.currentTime);
-
-    if(this.currentTime>=Tag.startTime&&this.currentTime<Tag.endTime){
-        displayTag(Tag);
-        canvas.addEventListener('mouseover',onMouseOver,false);
-        //canvas.addEventListener('mouseover',onMouseOut,false);
-        canvas.addEventListener('click',clickRect,false);
-        isShownTag=true;
-    }
-    else if(this.currentTime>=Tag.endTime){
-        if(isShownTag){
-            canvas.removeEventListener('click',clickRect,false);
-            clearDraw();
-            isShownTag=false;
+    if(!mode.edit){
+        if(this.currentTime>=Tag.startTime&&this.currentTime<Tag.endTime){
+                displayTag(Tag);
+                console.log('displayTag called when in : '+mode);   
+                // canvas.addEventListener('mouseover',onMouseOver,false);
+                // canvas.addEventListener('mouseover',onMouseOut,false);    
+                isShownTag=true;
+         
+        }
+        else if(this.currentTime>=Tag.endTime){
+            if(isShownTag){
+                canvas.removeEventListener('click',clickRect,false);
+                removeDivTag();
+                clearDraw();
+                isShownTag=false;
+            }
         }
     }
+
 }
 function removeEvents(){
     canvas.removeEventListener('mousedown', mouseDown, false);
@@ -265,6 +298,14 @@ function removeEvents(){
     canvas.style.cursor="auto";
 }
 function editVid(){
-    mode="edit";
+    mode.edit=true;
     initialize();
+    console.log("is in edit mode :"+mode.edit);
 }
+ // drawDivTag(tag){
+
+ // }
+ function removeDivTag(){
+    var wrap=document.querySelector("body");
+    wrap.removeChild(hotspot);
+ }
